@@ -12,6 +12,16 @@
   - [pass statement](#pass-statement)
   - [match statment](#match-statment)
 - [Defining Function](#defining-function)
+- [Data Structures](#data-structures)
+  - [List](#list)
+  - [Stack](#stack)
+  - [Queue](#queue)
+  - [List Comprehensions](#list-comprehensions)
+  - [Nested List Comprehensions](#nested-list-comprehensions)
+  - [del statement](#del-statement)
+  - [Tuples and Sequences](#tuples-and-sequences)
+  - [Sets](#sets)
+  - [Dictionaries](#dictionaries)
 
 # About Python
 Phân biệt giữa Compiled và Interpreted Programming Languages:
@@ -140,22 +150,153 @@ Trong trường hợp define a function, thì **pass** có thể thay thể bằ
 # Defining Function
 Trong python dùng **"def"** để define một function. Body function được interpreter recognize by indentations.
 
-Đầu function có thể có một “string literal” như một doc describe for functions
-- Mỗi function sẽ có một local symbol table to store all local variables trong function
-    - global variable cũng là by a value
-    - khi access một variable nó sẽ search trong các table từ trong ra ngoài - the local symbol tables of enclosing function → the global symbol table → the built-in table
-    - dùng “global, local, nonlocal” để specify the type of variable
-- Mỗi function name sẽ được associated với một function object được store trong local table → Ta có thể assign một existing function cho other function names.
-- Function trong python luôn return “None”.
+Line đầu tiên trong function có thể là note describe cho function
+
+Khi gọi để execute một function thì mỗi function sẽ có một local table riêng (bất kể cả function này gọi function khác or recursive) -> suy ra các biến sử dụng trong function là k liên quan đến nhau.
+- khi access một variable nó sẽ search trong các table từ trong ra ngoài - the local symbol tables of enclosing function → the global symbol table → the built-in table.
+- dùng “global, local, nonlocal” để specify the type of variable
+
+Mỗi function nó được xem là object gắn với a name -> ta có thể assign function for another name.
+
+Mỗi function trong python đều implicitly return một giá trị là None
+
 ```python
-words = ['thai', 'quoc', 'khue', 'soa']
-for i in words:
-    ... # pass
-    
-def http_error(var):
-    'this function is used to interate over items in var'
-    for item in var:
-        print(item)
-        
-http_error(words)
+x = int(input("Please enter your number:"))
+
+def is_check(status):
+    "This function is used to check the condition"
+    if status >= 0:
+        print("thaivodinh")
+
+is_check(x)
+
+y = 2
+def change_variable():
+    global y
+    y = 3
+    print(y)
+change_variable()
+print(y)
+
+def is_verify():
+    print("thaivodinh")
+
+if is_verify() is None:
+    print("This function returned None")
 ```
+1. Default Arguments
+
+Default argument trong function chỉ được evaluated một lần, sau đó nó có thể tái sử dụng.
+```python
+def f(a, L=[]):
+    L.append(a)
+    return L
+
+def f(a, L=None):
+    if L is None:
+        L = []
+    L.append(a)
+    return L
+
+print(f(1))
+print(f(2))
+print(f(3))
+```
+
+2. Keyword Arguments
+
+Keyword Argument: kwarg=value -> cú pháp trong lúc gọi hàm
+
+Ta có thể chỉ định một argument trong function với một giá trị cụ thể -> nhưng bắt buộc tên phải match.
+```python
+def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
+    print(voltage)
+    print(state)
+    print(action)
+    print(type)
+parrot(voltage=1000, action='thaivodinh') 
+```
+
+3. Special Parameters
+
+Việc pass arguments trong python chia làm 2 loại:
+- theo position
+- theo keyword
+
+Thì nó dùng "/" và "*" để phân tách các type argument trong một function.
+
+4. Lambda Functions
+```python
+def make_incrementor(n):
+    return lambda x: x + n
+
+f = make_incrementor(42) # => f(x) = x + 42
+
+print(f(2))
+```
+
+# Data Structures
+## List
+Support append(), extend(), insert, remove(), sort(), reverse(), ....
+
+List is mutable
+## Stack
+Follow principle LAST-IN, FIRST-OUT. Thằng cuối vào chính là thằng phải ra đầu tiên
+## Queue
+FIRST-IN, FIRST-OUT
+## List Comprehensions
+Cung cấp một cách để tạo một cái list nhanh chóng.
+```python
+squares1 = list(map(lambda x: x**2, range(10)))
+for i in squares1:
+    print(i)
+    
+squares2 = [x**2 for x in range(10)] # List Comprehensions
+for i in squares2:
+    print(i)
+    
+squares3 = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+for i in squares3:
+    print(i)
+    
+#====> the same
+temp_squares3 = []
+for x in [1, 2, 3]:
+    for y in [3, 1, 4]:
+        if x != y:
+            temp_squares3.append((x, y))
+```
+## Nested List Comprehensions
+## del statement
+To remove a item
+## Tuples and Sequences
+
+Một tuple chứa các giá trị khác nhau  
+
+Tuple is immutable
+```python
+tuple_item1 = () # empty
+tuple_item2 = 'thaivodinh', # one item (comma symbol at the end)
+
+# Cannot change value by index
+tuple_item2[0] = 'quocvodinh'
+
+# But can a sign new objects to the tuple
+tuple_item2 = 'khue', 56, 'nghean'
+
+# Can upack to assign other variable respectively
+tuple_item = 2, 'thaivodinh', 1234,
+x, y, z = tuple_item
+print(x, y, z)
+```
+## Sets
+- It is unordered collection with no duplicate elements
+- A set can create by curply braces or set() function
+- A empty set only create by set() function, not {}
+- Create set via list comprehension
+```python
+a = {x for x in 'aracaraaacra' if x not in 'abc'}
+print(a)
+```
+## Dictionaries
+
