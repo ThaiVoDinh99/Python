@@ -33,3 +33,34 @@
 
 a = {x for x in 'aracaraaacra' if x not in 'abc'}
 print(a)
+
+dict_items = dict([('thai', 26), ('quoc', 22), ('khue', 57)])
+# dict_items = {'thai': 26, 'quoc': 22}
+
+# Using items() to access values
+for k, v in dict_items.items():
+    print(k, v)
+    
+# Using enumerate() function to retrieve the index
+for i, v in enumerate(dict_items):
+    print(i, v)
+    
+# To loop over two or more sequences at the same time -> use zip() function
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print('What is your {0}?  It is {1}.'.format(q, a))
+    
+# To loop over a sequence in reverse -> use reversed() function
+for i in reversed(range(1, 10, 2)):
+    print(i)
+    
+# To loop over a sequence in sorted order -> use sorted() function
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for i in sorted(basket):
+    print(i)
+    
+# To loop over on a sequence with no duplicate elements -> use sorted() and set() function combination
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for f in sorted(set(basket)):
+    print(f)

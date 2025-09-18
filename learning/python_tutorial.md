@@ -22,6 +22,9 @@
   - [Tuples and Sequences](#tuples-and-sequences)
   - [Sets](#sets)
   - [Dictionaries](#dictionaries)
+  - [Looping Techniques](#looping-techniques)
+  - [More on Condition](#more-on-condition)
+  - [Comparing Sequences](#comparing-sequences)
 
 # About Python
 Phân biệt giữa Compiled và Interpreted Programming Languages:
@@ -299,4 +302,49 @@ a = {x for x in 'aracaraaacra' if x not in 'abc'}
 print(a)
 ```
 ## Dictionaries
+Similar to std::map in C++ with pairs of key and value.
+```python
+dict_items = dict([('thai', 26), ('quoc', 22), ('khue', 57)])
+# dict_items = {'thai': 26, 'quoc': 22}
+```
 
+## Looping Techniques
+Using items() function to access to keys and their associated values.
+```python
+# Using items() to access values
+for k, v in dict_items.items():
+    print(k, v)
+    
+# Using enumerate() function to retrieve the index
+for i, v in enumerate(dict_items):
+    print(i, v)
+    
+# To loop over two or more sequences at the same time -> use zip() function
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print('What is your {0}?  It is {1}.'.format(q, a))
+    
+# To loop over a sequence in reverse -> use reversed() function
+for i in reversed(range(1, 10, 2)):
+    print(i)
+    
+# To loop over a sequence in sorted order -> use sorted() function
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for i in sorted(basket):
+    print(i)
+    
+# To loop over on a sequence with no duplicate elements -> use sorted() and set() function combination
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for f in sorted(set(basket)):
+    print(f)
+```
+> Sometime you try to change the value while you're iterating over it -> you should create a new list for simpler and safer.
+
+## More on Condition
+- in, not in: to check a value is in (or not in) a container
+- is, not is: to compare two objects are really the same
+- and, or, not to compare
+
+## Comparing Sequences
+Các chuỗi object có thể compare với nhau.
